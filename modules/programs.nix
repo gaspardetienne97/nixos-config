@@ -11,6 +11,7 @@
     alacritty
     git
     vscodium
+    code-cursor
     eza
     deadnix
     zellij
@@ -21,6 +22,7 @@
     age
     nixd
     nil
+    nixpkgs-fmt
     caddy
     nixfmt-rfc-style
     vscode-langservers-extracted

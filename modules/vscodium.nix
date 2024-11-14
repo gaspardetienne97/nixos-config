@@ -12,12 +12,16 @@
       jock.svg
       editorconfig.editorconfig
       esbenp.prettier-vscode
-      emmanuelbeziat.vscode-great-icons
       davidanson.vscode-markdownlint
       svelte.svelte-vscode
       bradlc.vscode-tailwindcss
       kahole.magit
       bodil.file-browser
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+     
+      {
+        engineVersion="^1.79.0";lastUpdated="2024-10-24T12:30:06.868479Z";missingTimes=6;name="cody-ai";platform="universal";publisher="sourcegraph";sha256="b/XQkiasAAUg9OxhYEddxdH3SF/K9LOPTHGVmIoD3MA=";version="1.39.1729772971";
+        }
     ];
     keybindings = [ ];
     userSettings = {
@@ -60,7 +64,7 @@
         "editor.defaultFormatter" = "svelte.svelte-vscode";
       };
       # icons
-      "workbench.iconTheme" = "vscode-great-icons";
+      "workbench.iconTheme" = "catppuccin-vsc-icons";
 
       # theme
 

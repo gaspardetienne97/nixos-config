@@ -10,10 +10,10 @@
     ./hardware-configuration.nix
     ./personal-config.nix
     ./services.nix
-    ./home/caddy.nix
-    ./home/nextcloud.nix
-    ./home/secrets.nix
-    ./home/cloudflare-tunnel.nix
+    ./modules/caddy.nix
+    ./modules/nextcloud.nix
+    ./modules/secrets.nix
+    ./modules/cloudflare-tunnel.nix
   ];
 
   # Bootloader.

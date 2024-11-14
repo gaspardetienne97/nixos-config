@@ -60,7 +60,7 @@
 
               home-manager.users.gaspard = {
                 imports = [
-                  ./home
+                  ./home.nix
                   catppuccin.homeManagerModules.catppuccin
                   sops-nix.homeManagerModules.sops
                 ];
