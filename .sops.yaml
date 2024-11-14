@@ -1,0 +1,10 @@
+keys:
+  - &gaspard age1ut7efhktn4v2ukh3ewskhqwvlhjzmdqd3lk26jmnqhz68sgw3azsjq8jvt
+  - &nixos age1dyx44lsgjxy63anxvtj557adtaz3hcgp4fqmxyu4fd47mtf6ag6slyfsmz
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini|sops)$
+    key_groups:
+      - age:
+          - *gaspard
+          - *nixos
+
