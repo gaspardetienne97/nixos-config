@@ -6,14 +6,8 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ./personal-config.nix
-    ./services.nix
-    ./modules/caddy.nix
-    ./modules/nextcloud.nix
-    ./modules/secrets.nix
-    ./modules/cloudflare-tunnel.nix
+   ../base/configuration.nix
+   ./hardware-configuration.nix
   ];
 
   # Bootloader.
@@ -107,8 +101,6 @@
     ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
 
   # nix helper
   programs.nh = {

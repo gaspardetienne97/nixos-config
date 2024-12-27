@@ -1,14 +1,22 @@
-# Adds the Cloudflare DNS validation module
+# Caddy Server Overlay
+# Extends base Caddy with Cloudflare DNS validation support
+# Features:
+# - Cloudflare DNS plugin integration
+# - Custom build configuration
+# - Automatic module imports
+# - Vendor dependency management
 
 inputs: _final: prev:
 
 let
-
+  # List of additional Caddy plugins to include
   plugins = [ "github.com/caddy-dns/cloudflare" ];
-  goImports =
-    prev.lib.flip prev.lib.concatMapStrings plugins (pkg: "   _ \"${pkg}\"\n");
-  goGets = prev.lib.flip prev.lib.concatMapStrings plugins
-    (pkg: "go get ${pkg}\n      ");
+  
+  # Helper functions to generate Go imports and dependencies
+  goImports = prev.lib.flip prev.lib.concatMapStrings plugins (pkg: "   _ \"${pkg}\"\n");
+  goGets = prev.lib.flip prev.lib.concatMapStrings plugins (pkg: "go get ${pkg}\n      ");
+
+  # Main Caddy entry point with Cloudflare plugin
   main = ''
     package main
     import (
@@ -22,6 +30,7 @@ let
   '';
 
 in {
+  # Custom Caddy build with Cloudflare support
   caddycloudflare = prev.buildGo120Module {
     pname = "caddycloudflare";
     version = prev.caddy.version;

@@ -4,14 +4,38 @@
 }:
 
 {
-  imports = [
-    ./modules/catppuccin.nix
-    ./modules/programs.nix
-    ./modules/helix.nix
-    ./modules/alacritty.nix
-    ./modules/vscodium.nix
-    ./personal-config.nix
+
+   imports = 
+    # Import all .nix files from modules directory
+    let
+      modulesDir = ../../modules/home;
+      moduleFiles = builtins.filter
+        (name: builtins.match ".*\\.nix" name != null)
+        (builtins.attrNames (builtins.readDir modulesDir));
+    in
+    (map (file: modulesDir + "/${file}") moduleFiles) 
+    
+     # Common packages that don't need specific configuration
+  home.packages = with pkgs; [
+    bat
+    bottom
+    code-cursor
+    deadnix
+    sops
+    age
+    nixd
+    nil
+    nixpkgs-fmt
+    nixfmt-rfc-style
+    vscode-langservers-extracted
+    tailwindcss-language-server
+    typescript-language-server
+    svelte-language-server
+    nodePackages_latest.prettier
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
+   
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = config.personalConfig.username;

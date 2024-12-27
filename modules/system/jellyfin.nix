@@ -1,9 +1,18 @@
-# Jellyfin is a self-hosted video streaming service. This means I can play my
-# server's videos from a webpage, mobile app, or TV client.
+# Jellyfin Media Server Module
+# Self-hosted streaming service for video content
+# Features:
+# - Hardware transcoding support via VA-API
+# - Integration with Caddy for reverse proxy
+# - Media group permissions management
+# - Prometheus metrics integration
+{ config, lib, pkgs, ... }:
 
-{ config, pkgs, lib, ... }: {
+{
+  options.modules.jellyfin = {
+    enable = lib.mkEnableOption "Jellyfin media server";
+  };
 
-  config = lib.mkIf config.services.jellyfin.enable 
+  config = lib.mkIf config.modules.jellyfin.enable {
     services.jellyfin.group = "media";
     users.users.jellyfin = { isSystemUser = true; };
 

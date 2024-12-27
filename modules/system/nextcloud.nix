@@ -1,7 +1,19 @@
-{ pkgs, config, ... }:
-{
+# Nextcloud Server Module
+# Self-hosted cloud storage and collaboration platform
+# Features:
+# - File sync and sharing
+# - Integrated office suite (OnlyOffice)
+# - Calendar, contacts, and task management
+# - PostgreSQL database backend
+# - Redis caching for improved performance
+{ config, lib, pkgs, ... }:
 
-  config = {
+{
+  options.modules.nextcloud = {
+    enable = lib.mkEnableOption "Nextcloud server";
+  };
+
+  config = lib.mkIf config.modules.nextcloud.enable {
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud29;
