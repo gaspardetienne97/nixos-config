@@ -2,7 +2,7 @@
 {
 
   # Define personal configuration options
-  options.personalConfig = {
+  options.defaultConfigurationOptions = {
     username = pkgs.lib.mkOption {
       type = pkgs.lib.types.str;
       default = "gaspard";
@@ -40,17 +40,5 @@
       default = "hx";
     };
   };
-  config = {
-    personalConfig = {
-      username = "gaspard";
-      fullName = "Gaspard Michel Etienne";
-      email = "gaspardetienne97@gmail.com";
-      homeDirectory = "/home/gaspard";
-      hostName = "nixos";
-      websiteHostName = "gaspardetienne.com";
-      timezone = "America/New_York";
-      locale = "en_US.UTF-8";
-      editor = "hx";
-    };
-  };
+
 }

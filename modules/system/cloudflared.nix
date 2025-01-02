@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.modules.cloudflared.enable {
-    home.packages = [pkgs.cloudflared];
+    environment.systemPackages = [ pkgs.cloudflared ];
     services.cloudflared = {
       user = config.personalConfig.username;
       enable = true;

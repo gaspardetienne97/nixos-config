@@ -12,7 +12,9 @@
 
   config = lib.mkIf config.modules.qbittorrent.enable {
 
-      home.packages =  [ pkgs.qbittorrent ];
+    environment.systemPackages = [
+      pkgs.qbittorrent
+    ];
 
   };
 

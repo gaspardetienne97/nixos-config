@@ -1,11 +1,7 @@
-{
-  config,
-  ...
-}:
-
+{ config, pkgs, ... }:
 {
 
-   imports = 
+  imports =
     # Import all .nix files from modules directory
     let
       modulesDir = ../../modules/home;
@@ -13,10 +9,15 @@
         (name: builtins.match ".*\\.nix" name != null)
         (builtins.attrNames (builtins.readDir modulesDir));
     in
-    (map (file: modulesDir + "/${file}") moduleFiles) 
-    
-     # Common packages that don't need specific configuration
-  home.packages = with pkgs; [
+    (map (file: modulesDir + "/${file}") moduleFiles) ++ [
+      ../../modules/shared/config.nix
+    ]
+  ;
+
+
+
+  # Common packages that don't need specific configuration
+  home.packages = with pkgs;[
     bat
     bottom
     code-cursor
@@ -34,12 +35,12 @@
     nodePackages_latest.prettier
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
-   
+
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = config.personalConfig.username;
-  home.homeDirectory = config.personalConfig.homeDirectory;
+  home.username = config.defaultConfigurationOptions.username;
+  home.homeDirectory = config.defaultConfigurationOptions.homeDirectory;
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.

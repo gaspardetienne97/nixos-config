@@ -1,5 +1,7 @@
 # nixos-config
-My NixOS configurations
+
+My NixOS configuration
+
 # NixOS Configuration
 
 This repository contains my personal NixOS configuration, managed using Nix Flakes.

@@ -1,6 +1,5 @@
-{
-  config,
-  ...
+{ config
+, ...
 }:
 
 {
@@ -8,7 +7,7 @@
 
   modules = {
     alacritty.enable = true;
-    bash.enable = true;
+    bash.enable = true; #zsh.enable = true;
     catppuccin.enable = true;
     eza.enable = true;
     firefox.enable = true;

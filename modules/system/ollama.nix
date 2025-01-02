@@ -12,7 +12,7 @@
   };
 
   config = lib.mkIf config.modules.ollama.enable {
-    home.packages= [ pkgs.ollama ];
+    environment.systemPackages = [ pkgs.ollama ];
     # Enable Ollama support
     services.ollama = {
       enable = true;

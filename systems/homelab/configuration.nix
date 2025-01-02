@@ -6,8 +6,8 @@
 
 {
   imports = [
-   ../base/configuration.nix
-   ./hardware-configuration.nix
+    ../base/configuration.nix
+    ./hardware-configuration.nix
   ];
 
   # Bootloader.
@@ -15,7 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.luks.devices."luks-b891f6e5-40bc-4d23-9c91-ea2c5ff10db7".device = "/dev/disk/by-uuid/b891f6e5-40bc-4d23-9c91-ea2c5ff10db7";
-  networking.hostName = config.personalConfig.hostName; # Define your hostname.
+  networking.hostName = config.defaultConfigurationOptions.hostName; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -26,21 +26,21 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = config.personalConfig.timezone;
+  time.timeZone = config.defaultConfigurationOptions.timezone;
 
   # Select internationalisation properties.
-  i18n.defaultLocale = config.personalConfig.locale;
+  i18n.defaultLocale = config.defaultConfigurationOptions.locale;
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = config.personalConfig.locale;
-    LC_IDENTIFICATION = config.personalConfig.locale;
-    LC_MEASUREMENT = config.personalConfig.locale;
-    LC_MONETARY = config.personalConfig.locale;
-    LC_NAME = config.personalConfig.locale;
-    LC_NUMERIC = config.personalConfig.locale;
-    LC_PAPER = config.personalConfig.locale;
-    LC_TELEPHONE = config.personalConfig.locale;
-    LC_TIME = config.personalConfig.locale;
+    LC_ADDRESS = config.defaultConfigurationOptions.locale;
+    LC_IDENTIFICATION = config.defaultConfigurationOptions.locale;
+    LC_MEASUREMENT = config.defaultConfigurationOptions.locale;
+    LC_MONETARY = config.defaultConfigurationOptions.locale;
+    LC_NAME = config.defaultConfigurationOptions.locale;
+    LC_NUMERIC = config.defaultConfigurationOptions.locale;
+    LC_PAPER = config.defaultConfigurationOptions.locale;
+    LC_TELEPHONE = config.defaultConfigurationOptions.locale;
+    LC_TIME = config.defaultConfigurationOptions.locale;
   };
 
   # Enable the X11 windowing system
@@ -94,7 +94,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.gaspard = {
     isNormalUser = true;
-    description = config.personalConfig.fullName;
+    description = config.defaultConfigurationOptions.fullName;
     extraGroups = [
       "networkmanager"
       "wheel"
