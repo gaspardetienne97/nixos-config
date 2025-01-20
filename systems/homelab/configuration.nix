@@ -58,8 +58,8 @@
     # Enable Desktop Environment.
     desktopManager.gnome.enable = true;
     # Configure keymap in X11.
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
     # Exclude default X11 packages I don't want.
     excludePackages = with pkgs; [ xterm ];
   };
@@ -148,11 +148,11 @@
   boot.loader.systemd-boot.configurationLimit = 5;
 
   # Perform garbage collection weekly to maintain low disk usage
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 1w";
-  };
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   options = "--delete-older-than 1w";
+  # };
 
   # Optimize storage
   # You can also manually optimize the store via:

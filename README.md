@@ -23,7 +23,21 @@ This repository contains my personal NixOS configuration, managed using Nix Flak
   - `shell.nix`: Shell-related configurations (e.g., aliases, prompt).
   - `desktop.nix`: Desktop environment and related program configs.
 - `overlays/`: Custom Nix overlays:
+
   - `freecad.nix`: Custom overlay for FreeCAD.
+
+  ## TODO
+
+- [ ] implement nix-authentic
+- [ ] set up sveltekit devshell to auto start web server
+- [ ] implement oidc for auth in sveltekit app using lucia https://lucia-auth.com/tutorials/google-oauth/sveltekit
+- [ ] implement nextcloud
+- [ ] implement arr-nix for arr suite and make use nix-authentic
+- [ ] implement https://joinemm.dev/blog/yubikey-nixos-guide
+- [ ] implement https://github.com/pulsejet/memories or https://github.com/immich-app/immich
+- [ ] implement actual-budget server
+- [ ] implement manga sync server for mihon
+- [ ] implement ai suite and expose through site
 
 ## Functionality
 

@@ -25,6 +25,7 @@
     sops
     age
     nixd
+    neofetch
     nil
     nixpkgs-fmt
     nixfmt-rfc-style

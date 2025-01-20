@@ -21,8 +21,18 @@
     # Used for caddy plugins
     nixpkgs-caddy.url = "github:jpds/nixpkgs/caddy-external-plugins";
     # Used to manage arr suite
-    nixarr.url = "github:rasmus-kirk/nixarr";
-
+    nixarr = {
+      url = "github:rasmus-kirk/nixarr";
+    };
+    # Used to manage authentik identity provider
+    authentik-nix = {
+      url = "github:nix-community/authentik-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # Used to deploy my personal website
+    personal-website = {
+      url = "github:gaspardetienne97/PersonalWebsite";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, darwin, catppuccin, home-manager, sops-nix, nixarr, ... }:
@@ -46,6 +56,7 @@
           inherit system;
           specialArgs = {
             pkgs-caddy = import inputs.nixpkgs-caddy { inherit system; };
+            inherit inputs;
           };
           modules = [
             ./systems/homelab/configuration.nix
@@ -58,7 +69,7 @@
             # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
+              home-manager. useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
               home-manager.users.gaspard = {

@@ -15,13 +15,30 @@
     home.packages = [ pkgs.vscodium ];
     programs.vscode = {
       enable = true;
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = false;
+
       package = pkgs.vscodium;
       extensions = with pkgs.vscode-extensions; [
         serayuzgur.crates
+        # Interface Improvements
+        eamodio.gitlens
+        usernamehw.errorlens
+        pflannery.vscode-versionlens
+        yoavbls.pretty-ts-errors
+        wix.vscode-import-cost
+        gruntfuggly.todo-tree
         catppuccin.catppuccin-vsc
         catppuccin.catppuccin-vsc-icons
+        # Web Dev
+        # dbaeumer.vscode-eslint
+        esbenp.prettier-vscode
+        csstools.postcss
+        stylelint.vscode-stylelint
+        bradlc.vscode-tailwindcss
+        davidanson.vscode-markdownlint
+        unifiedjs.vscode-mdx
         tamasfe.even-better-toml
-        bbenoist.nix
         jock.svg
         editorconfig.editorconfig
         esbenp.prettier-vscode
@@ -30,18 +47,34 @@
         bradlc.vscode-tailwindcss
         kahole.magit
         bodil.file-browser
+        mhutchie.git-graph
+        # Nix
+        bbenoist.nix
+        jnoortheen.nix-ide
+        jetpack-io.devbox
+        arrterian.nix-env-selector
+        # GraphQL
+        graphql.vscode-graphql-syntax
+        graphql.vscode-graphql
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-       
+
         {
-          engineVersion="^1.79.0";lastUpdated="2024-10-24T12:30:06.868479Z";missingTimes=6;name="cody-ai";platform="universal";publisher="sourcegraph";sha256="b/XQkiasAAUg9OxhYEddxdH3SF/K9LOPTHGVmIoD3MA=";version="1.39.1729772971";
-          }
+          engineVersion = "^1.79.0";
+          lastUpdated = "2024-10-24T12:30:06.868479Z";
+          missingTimes = 6;
+          name = "cody-ai";
+          platform = "universal";
+          publisher = "sourcegraph";
+          sha256 = "b/XQkiasAAUg9OxhYEddxdH3SF/K9LOPTHGVmIoD3MA=";
+          version = "1.39.1729772971";
+        }
       ];
       keybindings = [ ];
       userSettings = {
         "files.autoSave" = "onFocusChange";
         "update.mode" = "none"; # updates are done by nix
         "explorer.confirmDelete" = false;
-        "editor.tabSize" = 2;
+        "editor.tabSize" = 4;
         "editor.fontSize" = 20;
         "editor.lineNumbers" = "interval";
         "editor.cursorBlinking" = "solid";
@@ -51,11 +84,21 @@
         "editor.formatOnSave" = true;
         "editor.formatOnPaste" = true;
         "breadcrumbs.enabled" = true;
+        "workbench.sideBar.location" = "right";
+
+        # Whitespace
+        "files.trimTrailingWhitespace" = true;
+        "files.trimFinalNewlines" = true;
+        "files.insertFinalNewline" = true;
+        "diffEditor.ignoreTrimWhitespace" = false;
         # git
         "git.confirmSync" = false;
         "git.autofetch" = false;
-        "magit.code-path" = "codium";
-        # prettier
+        "git.enableCommitSigning" = true;
+        "git-graph.repository.sign.commits" = true;
+        "git-graph.repository.sign.tags" = true;
+        "git-graph.repository.commits.showSignatureStatus" = true;
+
         "[json]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
@@ -74,8 +117,17 @@
         "typescript.updateImportsOnFileMove.enabled" = "always";
         # svelte
         "[svelte]" = {
-          "editor.defaultFormatter" = "svelte.svelte-vscode";
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
+
+        /* 
+        *TODO get nix language server definition from helix config
+        "nix.enableLanguageServer" = true;
+        "nix.formatterPath" = "${pkgs.alejandra}/bin/alejandra";
+        "nix.serverPath" = "${pkgs.nil}/bin/nil";
+        "nix.serverSettings"."nil"."formatting"."command" = [ "${pkgs.alejandra}/bin/alejandra" ];
+         */
+
         # icons
         "workbench.iconTheme" = "catppuccin-vsc-icons";
 

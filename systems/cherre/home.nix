@@ -1,15 +1,18 @@
 { pkgs, config, ... }:
 
 {
- imports = [../base/home.nix 
- ];
-   # Common packages that don't need specific configuration
+  imports = [
+    ../base/home.nix
+  ];
+  # Common packages that don't need specific configuration
   home.packages = with pkgs; [
     k9s
     dbeaver-bin
-spotify
+    spotify
     slack
     google-cloud-sdk
+    kubernetes-helm
+
   ];
 
 }

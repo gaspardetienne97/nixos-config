@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
+{ config
+, pkgs
+, inputs
+, ...
 }:
 
 {
@@ -27,6 +26,8 @@
         owner = "cloudflared";
         group = "cloudflared";
       };
+      authentik-env = { };
+
     };
   };
 }

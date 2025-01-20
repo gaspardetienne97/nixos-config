@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.modules.jellyfin.enable {
-    services.jellyfin.group = "media";
+    services.jellyfin.group = "nixarr";
     users.users.jellyfin = { isSystemUser = true; };
 
     /*   caddy.routes = [
