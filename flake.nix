@@ -60,10 +60,6 @@
     in
     {
 
-      nixpkgs.overlays = [
-        # Immich-go
-        (import ./overlays/immich-go.nix)
-      ];
 
 
 

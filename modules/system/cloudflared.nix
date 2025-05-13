@@ -19,7 +19,7 @@
       enable = true;
       tunnels = {
         "b80518d1-9def-4a06-bd24-e2ec0a18b12d" = {
-          credentialsFile = "${config.users.users.gaspard.home}/.cloudflared/b80518d1-9def-4a06-bd24-e2ec0a18b12d.json"; # "${config.sops.secrets."cloudflare/creds.json".path}";
+          credentialsFile = "${config.users.users.gaspard.home}/.cloudflared/b80518d1-9def-4a06-bd24-e2ec0a18b12d.json"; #TODO: use this => "${config.sops.secrets."cloudflare/creds.json".path}";
           originRequest = {
             httpHostHeader = config.defaultConfigurationOptions.websiteHostName;
             noTLSVerify = true;
