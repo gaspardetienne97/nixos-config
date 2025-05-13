@@ -13,16 +13,14 @@
   };
 
   config = lib.mkIf config.modules.firefly.enable {
-    sops.secrets.firefly-key = {
-      owner = "firefly-iii";
-    };
+
 
     services.firefly-iii = {
       enable = true;
       virtualHost = "0.0.0.0";
 
       settings = {
-        APP_KEY_FILE = config.sops.secrets.firefly-key.path;
+        APP_KEY_FILE = config.sops.secrets.firefly_key_file.path;
         DB_CONNECTION = "sqlite";
         DB_DATABASE = "firefly";
         DB_HOST = "localhost";

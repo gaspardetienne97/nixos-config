@@ -1,10 +1,11 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config
+, lib
+, pkgs
+, personal-website
+, ...
+}:
 {
-  imports = [
-    inputs.personal-website.packages
-  ];
-
-  options.services.personal-website = {
+  options.modules.personal-website = {
     enable = lib.mkEnableOption "Personal Website Service";
   };
 
@@ -15,14 +16,14 @@
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${config.personal-website.package}/bin/start-website";
+        ExecStart = "${pkgs.nodejs_22} --envfile=.env ${personal-website}/bin";
         Restart = "always";
         User = "personal-website";
         Group = "personal-website";
       };
 
       environment = {
-        PORT = 3000;
+        PORT = "3000";
         NODE_ENV = "production";
       };
     };

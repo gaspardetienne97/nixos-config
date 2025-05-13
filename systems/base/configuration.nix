@@ -1,17 +1,30 @@
 # Base configuration module that should be imported by all hosts
 # Provides common system settings and essential packages
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, nixpkgs
+, nix-vscode-extensions
+, ...
+}:
 
 {
   imports =
-    # Import all .nix files from modules directory
-    let
-      modulesDir = ../../modules/system;
-      moduleFiles = builtins.filter
-        (name: builtins.match ".*\\.nix" name != null)
-        (builtins.attrNames (builtins.readDir modulesDir));
-    in
-    (map (file: modulesDir + "/${file}") moduleFiles) ++ [ ../../modules/shared/config.nix ];
+    [
+      ../../modules/system/tailscale.nix
+      ../../modules/shared/secrets.nix
+      ../../modules/shared/config.nix
+    ];
+
+
+  modules = {
+    tailscale.enable = true;
+  };
+
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [
+    nix-vscode-extensions.overlays.default
+  ];
 
 
 

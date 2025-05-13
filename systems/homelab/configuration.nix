@@ -6,9 +6,36 @@
 
 {
   imports = [
+    ../../modules/system/caddy.nix
+    ../../modules/system/cloudflared.nix
+    ../../modules/system/fail2ban.nix
+    ../../modules/system/firefly.nix
+    ../../modules/system/ollama.nix
+    ../../modules/system/authentik.nix
+    ../../modules/system/nextcloud.nix
+    ../../modules/system/nixarr.nix
+    ../../modules/system/immich.nix
+    ../../modules/system/personal-website.nix
     ../base/configuration.nix
+    ../../modules/system/homepage.nix
     ./hardware-configuration.nix
   ];
+
+  modules = /* baseModules // */
+    {
+      caddy.enable = true;
+      cloudflared.enable = true;
+      fail2ban.enable = true;
+      firefly.enable = true;
+      ollama.enable = true;
+      authentik.enable = true;
+      nextcloud.enable = true;
+      homepage.enable = true;
+      nixarr.enable = true;
+      immich.enable = true;
+      personal-website.enable = true;
+      # qbittorrent.enable = true;
+    };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -71,7 +98,7 @@
   hardware.firmware = [ pkgs.rtl8761b-firmware ];
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -108,7 +135,7 @@
     clean.enable = true;
     clean.dates = "weekly";
     clean.extraArgs = "--keep-since 5d --keep 5";
-    flake = /home/gaspard/nixos-config;
+    flake = "/home/gaspard/nixos-config";
   };
 
   # Allow unfree packages

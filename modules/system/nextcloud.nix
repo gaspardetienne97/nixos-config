@@ -16,7 +16,7 @@
   config = lib.mkIf config.modules.nextcloud.enable {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud29;
+      package = pkgs.nextcloud30;
       hostName = "gaspardetienne.com";
       autoUpdateApps.startAt = "05:00:00";
       datadir = "/vault/datastorage/nextcloud-data";
@@ -89,7 +89,7 @@
       hostname = "/office";
       #services.onlyoffice.jwtSecretFile =config.sops.
     };
-    services.nginx.enable = false;
+    # services.nginx.enable = false;
     users.users.nginx.isSystemUser = true;
     users.users.nginx.group = "nginx";
     users.groups.nginx = { };
@@ -125,7 +125,7 @@
       ];
     */
     # Allows nextcloud-exporter to read passwordFile
-    #users.users.nextcloud-exporter.extraGroups = [ "nextcloud" ];
+    # users.users.nextcloud-exporter.extraGroups = [ "nextcloud" ];
 
   };
 }

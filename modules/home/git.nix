@@ -14,8 +14,16 @@
 
     programs.git = {
       enable = true;
-      userName = config.personalConfig.fullName;
-      userEmail = config.personalConfig.email;
+      userName = config.defaultConfigurationOptions.fullName;
+      userEmail = config.defaultConfigurationOptions.email;
+   aliases = {
+      ci = "commit";
+      co = "checkout";
+      s = "status";
+    };
+     extraConfig = {
+      push = { autoSetupRemote = true; };
+    };
     };
   };
 }

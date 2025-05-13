@@ -13,9 +13,9 @@
 
   config = lib.mkIf config.modules.eza.enable {
     programs.eza = {
-        enable = true;
-        git = true;
-        icons = true;
-      };
+      enable = true;
+      git = true;
+      icons = "auto";
+    };
   };
 }

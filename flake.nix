@@ -33,64 +33,89 @@
     personal-website = {
       url = "github:gaspardetienne97/PersonalWebsite";
     };
+    # Used for vscode extensions
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, darwin, catppuccin, home-manager, sops-nix, nixarr, ... }:
+  outputs =
+    inputs@{ self
+    , nixpkgs
+    , darwin
+    , catppuccin
+    , home-manager
+    , sops-nix
+    , nixarr
+    , authentik-nix
+    , nix-vscode-extensions
+    , personal-website
+    , ...
+    }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
       darwinSystem = "aarch64-darwin";
+
     in
     {
 
-      nixpkgs.overlays = [ (import ./overlays/freecad.nix) ];
+      nixpkgs.overlays = [
+        # Immich-go
+        (import ./overlays/immich-go.nix)
+      ];
 
-      devShells.${system}.default =
+
+
+      /*  devShells.${system}.default =
         let
           pkgs = import nixpkgs { inherit system; };
         in
         pkgs.mkShell { packages = with pkgs; [ nodejs ]; };
-
+       */
       nixosConfigurations = {
-        nixos = lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            pkgs-caddy = import inputs.nixpkgs-caddy { inherit system; };
-            inherit inputs;
+        nixos = lib.nixosSystem
+          {
+            inherit system;
+            specialArgs = inputs;
+
+            modules = [
+
+              ./systems/homelab/configuration.nix
+
+              catppuccin.nixosModules.catppuccin
+              sops-nix.nixosModules.sops
+              #nixarr.nixosModules.default
+
+              # make home-manager as a module of nixos
+              # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.users.gaspard = {
+                  imports = [
+                    ./systems/homelab/home.nix
+                    catppuccin.homeManagerModules.catppuccin
+                    sops-nix.homeManagerModules.sops
+                  ];
+                };
+              }
+
+            ];
           };
-          modules = [
-            ./systems/homelab/configuration.nix
-
-            catppuccin.nixosModules.catppuccin
-            sops-nix.nixosModules.sops
-            nixarr.nixosModules.default
-
-            # make home-manager as a module of nixos
-            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-            home-manager.nixosModules.home-manager
-            {
-              home-manager. useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.users.gaspard = {
-                imports = [
-                  ./systems/homelab/home.nix
-                  catppuccin.homeManagerModules.catppuccin
-                  sops-nix.homeManagerModules.sops
-                ];
-              };
-            }
-
-          ];
-        };
       };
 
       # make darwin as a module of nixos
-      darwinConfigurations = {
+      /* darwinConfigurations = {
         Gaspards-MacBook-Pro = darwin.lib.darwinSystem {
           system = darwinSystem;
           modules = [
+
             ./systems/cherre/configuration.nix
+            catppuccin.nixosModules.catppuccin
+            sops-nix.nixosModules.sops
             home-manager.darwinModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -105,6 +130,6 @@
             }
           ];
         };
-      };
+      }; */
     };
 }

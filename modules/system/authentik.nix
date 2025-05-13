@@ -1,10 +1,15 @@
 # Authentik Module
 
-{ config, lib, pkgs, inputs, ... }:
+{ config
+, lib
+, pkgs
+, authentik-nix
+, ...
+}:
 
 {
   imports = [
-    inputs.authentik-nix.nixosModules.default
+    authentik-nix.nixosModules.default
   ];
 
   options.modules.authentik = {
@@ -16,7 +21,7 @@
       enable = true;
       # The environmentFile needs to be on the target host!
       # Best use something like sops-nix or agenix to manage it
-      environmentFile = config.sops.secrets.authentik-env.path;
+      environmentFile = config.sops.secrets.authentik_env.path;
 
       settings = {
         email = {

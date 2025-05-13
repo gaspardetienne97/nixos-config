@@ -1,30 +1,16 @@
 { pkgs
 , lib
-, inputs
+, nixarr
 , config
 , ...
 }: {
-  imports = [ inputs.nixarr.nixosModules.default ];
+  imports = [ nixarr.nixosModules.default ];
 
   options.modules.nixarr = {
     enable = lib.mkEnableOption "Arr Suite configuration";
   };
 
   config = lib.mkIf config.modules.nixarr.enable {
-
-
-
-    #disable useradd and passwd.
-    #users.mutableUsers = false;
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.nixarr = {
-      isSystemUser = true;
-      description = "Nixarr user";
-    };
-
-    services.jellyfin.group = "nixarr";
-    services.jellyfin.user = "nixarr";
-
 
     # Create videos directory, allow anyone in Jellyfin group to manage it
     systemd.tmpfiles.rules = [
@@ -33,9 +19,8 @@
     ];
 
     # Enable VA-API for hardware transcoding
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
-      driSupport = true;
       extraPackages = [ pkgs.libva ];
     };
 
@@ -46,7 +31,7 @@
       "VDPAU_DRIVER" = "radeonsi";
       "LIBVA_DRIVER_NAME" = "radeonsi";
     };
-    users.users.nixarr.extraGroups =
+    users.users.streamer.extraGroups =
       [ "render" "video" ]; # Access to /dev/dri
 
     # Fix issue where Jellyfin-created directories don't allow access for media group
@@ -62,11 +47,17 @@
       mediaDir = "/data/media";
       stateDir = "/data/media/.state/nixarr";
 
-      mediaUsers = [ "nixarr" ];
+
+      vpn = {
+        enable = true;
+        # WARNING: This file must _not_ be in the config git directory
+        # You can usually get this wireguard file from your VPN provider
+        wgConf = "/data/.secret/wg.conf";
+      };
 
       jellyfin = {
         enable = true;
-        openFirewall = true;
+        # openFirewall = true;
         # These options set up a nginx HTTPS reverse proxy, so you can access
         # Jellyfin on your domain with HTTPS
         # expose.https = {
@@ -78,7 +69,6 @@
 
       transmission = {
         enable = true;
-        openFirewall = true;
         vpn.enable = true;
         # peerPort = 50000; # Set this to the port forwarded by your VPN
       };
@@ -87,33 +77,26 @@
       # is generally not recommended, as it can cause rate-limiting issues.
       bazarr = {
         enable = true;
-        openFirewall = true;
       };
       lidarr = {
         enable = true;
-        openFirewall = true;
       };
       prowlarr = {
         enable = true;
-        openFirewall = true;
       };
       radarr = {
         enable = true;
-        openFirewall = true;
       };
       readarr = {
         enable = true;
-        openFirewall = true;
       };
       sonarr = {
         enable = true;
-        openFirewall = true;
       };
     };
 
     services.jellyseerr = {
       enable = true;
-      openFirewall = true;
     };
   };
 }

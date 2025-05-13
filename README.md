@@ -32,6 +32,8 @@ This repository contains my personal NixOS configuration, managed using Nix Flak
 - [ ] set up sveltekit devshell to auto start web server
 - [ ] implement oidc for auth in sveltekit app using lucia https://lucia-auth.com/tutorials/google-oauth/sveltekit
 - [ ] implement nextcloud
+- [ ] implement tandoor
+- [ ] implement calibre
 - [ ] implement arr-nix for arr suite and make use nix-authentic
 - [ ] implement https://joinemm.dev/blog/yubikey-nixos-guide
 - [ ] implement https://github.com/pulsejet/memories or https://github.com/immich-app/immich

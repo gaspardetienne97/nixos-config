@@ -12,7 +12,7 @@
   };
 
   config = lib.mkIf config.modules.helix.enable {
-    home.sessionVariables.EDITOR = config.personalConfig.editor;
+    home.sessionVariables.EDITOR = config.defaultConfigurationOptions.editor;
 
     programs.helix = {
       enable = true;
